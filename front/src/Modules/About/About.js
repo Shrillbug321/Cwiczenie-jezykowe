@@ -1,9 +1,8 @@
-// JavaScript source code
 export default function About()
 {
 	return (
 		<div>
-			<p> Jesteśmy super szkołą bez doświadczenia </p>
+			<p> Jesteśmy młodą szkołą, ale za to z zapałem!</p>
 		</div>
 	)
 }

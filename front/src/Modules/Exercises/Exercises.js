@@ -10,7 +10,6 @@ export default class Exercises extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			exercises: []
 		}
@@ -19,12 +18,10 @@ export default class Exercises extends React.Component {
 	componentDidMount()
 	{
 		fetch("http://localhost:3001/exercises")
-			.then((res) => res.json())
-			.then((resJSON) => {
-				this.setState({ exercises: resJSON})
-			})
+			.then(res => res.json())
+			.then(resJSON => this.setState({ exercises: resJSON}))
 			.then(() => console.log(this.state.exercises))
-			.catch((error) => { console.error(error) });
+			.catch(error => { console.error(error) });
 	}
 
 	render()

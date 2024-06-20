@@ -45,15 +45,14 @@ class Matching extends React.Component {
 
 	 drop(event) {
 		event.preventDefault();
-		 var data = event.dataTransfer.getData("id");
+		 let data = event.dataTransfer.getData("id");
 		 event.target.style.border = "1px solid #c4c4c4";
 		 event.target.appendChild(document.getElementById(data));
 		 console.log(event.target);
 		 this.setState({ checked: this.state.checked + 1 })
-		 if (event.dataTransfer.getData("name") == event.target.id) {
-			 this.setState({ matched: this.state.matched+1 })
-		 }
-		 if (this.state.checked == this.state.all)
+		 if (event.dataTransfer.getData("name") === event.target.id)
+			 this.setState({ matched: this.state.matched + 1 })
+		 if (this.state.checked === this.state.all)
 		 {
 			 document.getElementById("result").style.opacity = "1";
 			 addPoints(localStorage.getItem("username"), this.state.matched);
@@ -71,24 +70,21 @@ class Matching extends React.Component {
 	}
 
 	componentDidMount() {
-		var path = window.location.pathname;
-		var splitted = path.split('/');
+		let path = window.location.pathname;
+		let splitted = path.split('/');
 		this.setState({ exerciseId: splitted[splitted.length - 1] })
 	}
 	render() {
-		if (this.state.labels.length == 0) {
+		if (this.state.labels.length === 0) {
 			fetch("http://localhost:3001/matching/" + this.state.exerciseId)
-				.then((res) => res.json())
-				.then((resJSON) => {
-					this.setState({ labels: resJSON })
-				})
+				.then(res => res.json())
+				.then(resJSON => this.setState({ labels: resJSON }))
 				.then(() => console.log(this.state.labels))
 				.catch((error) => { console.error(error) });
 			return null;
 		}
-		else {
+		else
 			if (!this.state.isEnd)
-			{
 				return (
 					<div>
 						<form>
@@ -112,15 +108,13 @@ class Matching extends React.Component {
 						</form>
 					</div>
 				)
-			}		
-		}
-	 }
+			}
 }
 export default withRouter(Matching);
 
 async function addPoints(username, pointsToAdd)
 {
 	fetch("http://localhost:3001/addPoints/" + username + "/" + pointsToAdd)
-		.then((res) => res.json())
-		.catch((error) => { console.error(error) });
+		.then(res => res.json())
+		.catch(error => { console.error(error) });
 }

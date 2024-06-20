@@ -10,9 +10,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import './App.css';
 import Crossword from "./Modules/Exercises/Crossword.js";
-function App() {
-	const [ data, setData ] = React.useState(null);
-
+export default function App() {
 	return (
 	  <div>
 		<Router>
@@ -32,8 +30,5 @@ function App() {
 			</Routes>
 		</Router>
 	</div>
-			
   );
 }
-
-export default App;
