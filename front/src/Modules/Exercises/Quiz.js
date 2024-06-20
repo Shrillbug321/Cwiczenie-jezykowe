@@ -9,14 +9,13 @@ import FormHelperText from '@mui/material/FormHelperText';
 class Quiz extends React.Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			quizId: 0,
 			questions: [],
 			current: 0,
 			endQuiz: false,
 			radioValue: "",
-			answerResult: "Wynik poprzedzniej odpowiedzi",
+			answerResult: "Wynik poprzedniej odpowiedzi",
 			correctAnswered: 0,
 			pointsAdded: false
 		}
@@ -26,7 +25,7 @@ class Quiz extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		if (this.state.radioValue == this.state.questions[this.state.current].correctAnswer)
+		if (this.state.radioValue === this.state.questions[this.state.current].correctAnswer)
 		{
 			this.setState({ answerResult: "Dobrze" });
 			this.setState({ correctAnswered: this.state.correctAnswered + 1 });
@@ -44,24 +43,21 @@ class Quiz extends React.Component {
 	}
 
 	componentDidMount() {
-		var path = window.location.pathname;
-		var splitted = path.split('/');
+		let path = window.location.pathname;
+		let splitted = path.split('/');
 		this.setState({ quizId: splitted[splitted.length - 1] })
 	}
 	render() {
-		if (this.state.questions.length == 0) {
+		if (this.state.questions.length === 0) {
 			fetch("http://localhost:3001/quiz/" + this.state.quizId)
-				.then((res) => res.json())
-				.then((resJSON) => {
-					this.setState({ questions: resJSON })
-				})
+				.then(res => res.json())
+				.then(resJSON => this.setState({ questions: resJSON }))
 				.then(() => console.log(this.state.questions))
-				.catch((error) => { console.error(error) });
+				.catch(error => { console.error(error) });
 			return null;
 		}
 		else {
 			if (!this.state.endQuiz)
-			{
 				return (
 					<div>
 						<form onSubmit={this.handleSubmit}>
@@ -79,19 +75,11 @@ class Quiz extends React.Component {
 						</form>
 					</div>
 				)
-			}
 			else {
 				if (!this.state.pointsAdded)
 				{
 					this.setState({ pointsAdded: true })
 					addPoints(localStorage.getItem("username"), this.state.correctAnswered);
-					/*fetch("http://localhost:3001/addPoints/" + localStorage.getItem("username") + "/" + this.state.correctAnswered)
-					.then((res) => res.json())
-					.then((resJSON) => {
-						this.setState({ questions: resJSON })
-					})
-					.then(() => console.log(this.state.questions))
-						.catch((error) => { console.error(error) });*/
 				}
 				return (
 					<div>
@@ -108,6 +96,6 @@ export default withRouter(Quiz);
 function addPoints(username, pointsToAdd)
 {
 	fetch("http://localhost:3001/addPoints/" + username + "/" + pointsToAdd)
-		.then((res) => res.json())
-			.catch((error) => { console.error(error) });
+		.then(res=> res.json())
+		.catch(error => { console.error(error) });
 }

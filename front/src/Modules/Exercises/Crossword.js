@@ -22,7 +22,6 @@ class Crossword extends React.Component
 	}
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			exerciseId: 0,
 			crossword: [],
@@ -35,9 +34,9 @@ class Crossword extends React.Component
 	
 	checkSolve() {
 		if (!this.state.goodAnswered) {
-			var a = document.getElementsByClassName("solve");
-			for (var i = 0; i < a.length; i++) {
-				if (this.state.crossword[0].solve[i] != a.item(i).children.item(0).children.item(0).value.toUpperCase()) {
+			let a = document.getElementsByClassName("solve");
+			for (let i = 0; i < a.length; i++) {
+				if (this.state.crossword[0].solve[i] !== a.item(i).children.item(0).children.item(0).value.toUpperCase()) {
 					this.setState({ result: "Źle" });
 					return;
 				}
@@ -49,19 +48,17 @@ class Crossword extends React.Component
 	}
 
 	componentDidMount() {
-		var path = window.location.pathname;
-		var splitted = path.split('/');
+		let path = window.location.pathname;
+		let splitted = path.split('/');
 		this.setState({ exerciseId: splitted[splitted.length - 1] })
 	}
 	render() {
-		if (this.state.crossword.length == 0) {
+		if (this.state.crossword.length === 0) {
 			fetch("http://localhost:3001/crossword/" + this.state.exerciseId)
-				.then((res) => res.json())
-				.then((resJSON) => {
-					this.setState({ crossword: resJSON })
-				})
+				.then(res => res.json())
+				.then(resJSON => this.setState({ crossword: resJSON }))
 				.then(() => console.log(this.state.crossword))
-				.catch((error) => { console.error(error) });
+				.catch(error => { console.error(error) });
 			return null;
 		}
 		else {
@@ -105,19 +102,21 @@ export default withRouter(Crossword);
 
 function Check(props) {
 	return (
-		<TextField size="small" style={props.styl} inputProps={{ maxLength: 1, style: { textTransform: "uppercase", textAlign: "center" } }} />
+		<TextField size="small" style={props.styl} 
+				   inputProps={{ maxLength: 1, style: { textTransform: "uppercase", textAlign: "center" } }} />
 	);
 }
 
 function CheckHighlight(props) {
 	return (
-		<TextField  className="solve" size="small" style={props.styl} inputProps={{ maxLength: 1, style: { textTransform: "uppercase", textAlign: "center" } }} />
+		<TextField  className="solve" size="small" style={props.styl} 
+					inputProps={{ maxLength: 1, style: { textTransform: "uppercase", textAlign: "center" } }} />
 	);
 }
 
 async function addPoints(username, pointsToAdd)
 {
 	fetch("http://localhost:3001/addPoints/" + username + "/" + pointsToAdd)
-		.then((res) => res.json())
-		.catch((error) => { console.error(error) });
+		.then(res => res.json())
+		.catch(error => { console.error(error) });
 }

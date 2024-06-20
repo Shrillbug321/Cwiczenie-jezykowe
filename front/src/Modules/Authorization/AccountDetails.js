@@ -1,17 +1,9 @@
 import * as React from 'react';
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Menu, MenuItem } from '@mui/material';
 export default class LoginControl extends React.Component
 {
 	constructor(props)
 	{
 		super(props);
-
 		this.state = {
 			details: []
 		}
@@ -19,14 +11,12 @@ export default class LoginControl extends React.Component
 
 	render()
 	{
-		if (this.state.details.length == 0) {
+		if (this.state.details.length === 0) {
 			fetch("http://localhost:3001/accountDetails/" + this.props.username)
-				.then((res) => res.json())
-				.then((resJSON) => {
-					this.setState({ details: resJSON })
-				})
+				.then(res => res.json())
+				.then(resJSON => this.setState({ details: resJSON }))
 				.then(() => console.log(this.state.details))
-				.catch((error) => { console.error(error) });
+				.catch(error => { console.error(error) });
 			return null;
 		}
 		return (

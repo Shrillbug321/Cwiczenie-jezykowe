@@ -2,16 +2,13 @@ import * as React from 'react';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Menu, MenuItem } from '@mui/material';
+import {Link} from "react-router-dom";
 export default class LoginControl extends React.Component
 {
 	constructor(props)
 	{
 		super(props);
-
 		this.state = {
 			state: "",
 			isLogged: false,
@@ -47,9 +44,9 @@ export default class LoginControl extends React.Component
 	hLoginClick(event) {
 		event.preventDefault();
 		fetch("http://localhost:3001/login/" + this.state.username + "/" + this.state.password)
-			.then((res) => res.json())
-			.then((resJSON) => {
-				if (resJSON.isValid == "userValid")
+			.then(res => res.json())
+			.then(resJSON => {
+				if (resJSON.isValid === "userValid")
 				{
 					this.setState({ isLogged: true })
 					this.setState({ state: "logged" })
@@ -57,7 +54,7 @@ export default class LoginControl extends React.Component
 				}
 			})
 			.then(() => console.log(this.state.isLogged))
-			.catch((error) => { console.error(error) });
+			.catch(error => { console.error(error) });
 	}
 
 	hLogoutClick() {
@@ -99,17 +96,14 @@ export default class LoginControl extends React.Component
 							</List>
 						</span>
 					)
-				else {
+				else
 					return (
 						<span>
 							<Button variant="contained" color="success" onClick={this.openMenu}> Konto </Button>
 						</span>
 						)
-				}
 			default:
-				return (
-					<LoginButton onClick={this.hGoToFormClick} />
-				)
+				return <LoginButton onClick={this.hGoToFormClick} />
 		}
 	}
 }
@@ -121,18 +115,3 @@ function LoginButton(props) {
 		</Link>
 	);
 }
-
-function LogoutButton(props) {
-	return (
-		<div>
-		<Button variant="contained" color="success" onClick={props.onClick}> Wyloguj się </Button>
-		<List>
-			<ListItemButton> Szczegóły konta </ListItemButton>
-			<ListItemButton onClick={props.onClick}></ListItemButton>
-		</List>
-		</div>
-	);
-}
-
-
-
