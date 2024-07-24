@@ -74,3 +74,23 @@ Supported by Node.js with Express framework. Connected with MongoDB and process 
 6. Application is ready to work <br>
 
 June 2022
+
+Strona wyboru ćwiczeń <br>
+Choose exercise page
+![img_4.png](readme/img_4.png)
+
+Quiz <br>
+Quiz
+![img_1.png](readme/img_1.png)
+
+Dopasowywanie <br>
+Matchings
+![img_2.png](readme/img_2.png)
+
+Krzyżówka <br>
+Crossword
+![img_3.png](readme/img_3.png)
+
+Słownik <br>
+Dictionary
+![img_5.png](readme/img_5.png)
